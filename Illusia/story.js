@@ -10,18 +10,18 @@ let typeInterval = null;
 
 const story = {
   start: {
-    text: "คุณตื่นขึ้นมากลางป่ามืด เสียงลมพัดผ่านใบไม้ทำให้รู้สึกหนาวสั่นราวกับมีใครมองคุณอยู่รอบตัว คุณพยายามลุกขึ้นและมองไปรอบ ๆ เห็นทางเดินสองทาง",
-    background : "https://images.unsplash.com/photo-1630695230041-8909e3204778?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZGFyayUyMGZvcmVzdHxlbnwwfHwwfHx8MA%3D%3D",
-    next: "delay1"
+    text: '"แฮ่ก- แฮ่ก" \nร่างกายคุณอาบชุ่มไปด้วยเหงื่อ เสียงลมหวีดหวิวสวนทางกับคุณที่พุ่งตรงไปด้านหน้า อะดรีนาลีนที่หลั่งทำให้ฝีเท้าคุณก้าว \nยาวขึ้น คุณวิ่งเร็วขึ้นเรื่อย ๆ จนกระทั่ง .. ',
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408368779196366869/IMG_9650.png?ex=68a97d23&is=68a82ba3&hm=14f33d4fd84ec9c8fafe7d515ec991ef462f2a88c8adae108f836b9f85f34f4c",
+    next: "scene_2"
   },
-  delay1: {
-    background : "https://media.istockphoto.com/id/1043674456/photo/path-in-dark-and-scary-forest.jpg?s=612x612&w=0&k=20&c=kusnz_NqH12kE5h0vnlHbb_BQcm0rCFN5rAWyms2Dmg=",
-    delay: 3000,
+  scene_2: {
+    text: "‘ ตุบ- ’ \nสายตาคุณมืดมิด ประสาทการรับรู้ถูกปิดกั้นด้วยบางสิ่ง",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408369544707313734/IMG_6521.png?ex=68a97dd9&is=68a82c59&hm=7b9ad2055f73e8424c69419da1bec3d0bfee0769afa40c52495e68cfceb922d9",
     next: "scene1"
   },
   scene1: {
     text: "ทางเดินหนึ่งนำไปสู่หมู่บ้านที่ไกลลิบ อีกทางนำเข้าไปในป่ามืดที่แผ่ขยายไปไม่รู้จบ",
-    background : "https://media.istockphoto.com/id/1043674456/photo/path-in-dark-and-scary-forest.jpg?s=612x612&w=0&k=20&c=kusnz_NqH12kE5h0vnlHbb_BQcm0rCFN5rAWyms2Dmg=",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408369544707313734/IMG_6521.png?ex=68a97dd9&is=68a82c59&hm=7b9ad2055f73e8424c69419da1bec3d0bfee0769afa40c52495e68cfceb922d9",
     choices: [
       { text: "เดินไปหมู่บ้าน", next: "village" },
       { text: "เข้าไปในป่า", next: "forest" }
@@ -161,7 +161,11 @@ function typeWriter(text, callback) {
   continueText.style.display = "none"; // ซ่อน Space
 
   typeInterval = setInterval(() => {
-    storyText.textContent += text.charAt(i);
+    if (text.charAt(i) === "\n") {
+      storyText.innerHTML += "<br>";
+    } else {
+      storyText.innerHTML += text.charAt(i);
+    }
     i++;
     if (i >= text.length) {
       clearInterval(typeInterval);

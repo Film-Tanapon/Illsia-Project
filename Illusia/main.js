@@ -16,3 +16,8 @@ settingBtn.addEventListener("click", () => {
 quitBtn.addEventListener("click", () => {
   window.close();
 });
+
+// go to setting
+function goToSettings() {
+    window.location.href = "setting.html";
+}

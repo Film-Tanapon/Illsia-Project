@@ -1,320 +1,11 @@
-Skip to content
-Chat history
-
-You said:
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>การตั้งค่า - Visual Novel</title>
-    <style>
-        :root {
-            --main-bg-color: #1a1a2e;
-            --secondary-bg-color: #16213e;
-            --accent-color: #e94560;
-            --text-color: #f0f0f0;
-            --slider-bg: #4a4a6e;
-            --slider-handle: #e94560;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Sans Thai', 'Tahoma', sans-serif;
-        }
-        
-        body {
-            background-color: var(--main-bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231a1a2e" width="100" height="100"/><path fill="%2316213e" d="M0 0L100 100M100 0L0 100" stroke="%23e94560" stroke-width="2"/></svg>');
-        }
-        
-        .settings-container {
-            background-color: var(--secondary-bg-color);
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 800px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(233, 69, 96, 0.3);
-        }
-        
-        .settings-header {
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        
-        .settings-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .settings-header p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
-        
-        .settings-header::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background: var(--accent-color);
-            margin: 10px auto;
-            border-radius: 3px;
-        }
-        
-        .settings-tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--slider-bg);
-            flex-wrap: wrap;
-        }
-        
-        .tab-button {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 1rem;
-            opacity: 0.7;
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .tab-button.active {
-            opacity: 1;
-            color: var(--accent-color);
-        }
-        
-        .tab-button.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--accent-color);
-            border-radius: 3px 3px 0 0;
-        }
-        
-        .tab-content {
-            display: none;
-            padding: 15px;
-            background: rgba(26, 26, 46, 0.5);
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .setting-item {
-            margin-bottom: 25px;
-            padding: 15px;
-            background: rgba(22, 33, 62, 0.5);
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-color);
-        }
-        
-        .setting-item h3 {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            color: var(--accent-color);
-        }
-        
-        .slider-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: var(--slider-bg);
-            outline: none;
-        }
-        
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--slider-handle);
-            cursor: pointer;
-            box-shadow: 0 0 5px rgba(233, 69, 96, 0.5);
-        }
-        
-        .slider-value {
-            margin-left: 15px;
-            min-width: 40px;
-            text-align: center;
-            background: var(--slider-bg);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-        
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--slider-bg);
-            transition: .4s;
-            border-radius: 30px;
-        }
-        
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .toggle-slider {
-            background-color: var(--accent-color);
-        }
-        
-        input:checked + .toggle-slider:before {
-            transform: translateX(30px);
-        }
-        
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .button-group button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--slider-bg);
-            color: var(--text-color);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .button-group button:hover {
-            background-color: var(--accent-color);
-        }
-        
-        select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: var(--slider-bg);
-            color: var(--text-color);
-            border: none;
-            cursor: pointer;
-        }
-        
-        select option {
-            background: var(--secondary-bg-color);
-            padding: 10px;
-        }
-        
-        .settings-footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--slider-bg);
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #d43a55;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-secondary {
-            background-color: var(--slider-bg);
-            color: var(--text-color);
-        }
-        
-        .btn-secondary:hover {
-            background-color: #5a5a8a;
-            transform: translateY(-2px);
-        }
-        
-        @media (max-width: 600px) {
-            .settings-tabs {
-                flex-direction: column;
-            }
-            
-            .settings-footer {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="setting.css">
 </head>
 <body>
     <div class="settings-container">
@@ -324,10 +15,10 @@ You said:
         </div>
         
         <div class="settings-tabs">
-            <button class="tab-button active" onclick="openTab('audio')">เสียง</button>
-            <button class="tab-button" onclick="openTab('display')">การแสดงผล</button>
-            <button class="tab-button" onclick="openTab('text')">ข้อความ</button>
-            <button class="tab-button" onclick="openTab('gameplay')">การเล่นเกม</button>
+            <button class="tab-button active" data-tab="audio">เสียง</button>
+            <button class="tab-button" data-tab="display">การแสดงผล</button>
+            <button class="tab-button" data-tab="text">ข้อความ</button>
+            <button class="tab-button" data-tab="gameplay">การเล่นเกม</button>
         </div>
         
         <div id="audio" class="tab-content active">
@@ -358,7 +49,7 @@ You said:
             <div class="setting-item">
                 <h3>เปิด/ปิดเสียงทั้งหมด</h3>
                 <label class="toggle-switch">
-                    <input type="checkbox" checked>
+                    <input type="checkbox" checked id="masterVolume">
                     <span class="toggle-slider"></span>
                 </label>
             </div>
@@ -431,7 +122,7 @@ You said:
             <div class="setting-item">
                 <h3>แสดงชื่อผู้พูด</h3>
                 <label class="toggle-switch">
-                    <input type="checkbox" checked>
+                    <input type="checkbox" checked id="showSpeakerName">
                     <span class="toggle-slider"></span>
                 </label>
             </div>
@@ -441,7 +132,7 @@ You said:
             <div class="setting-item">
                 <h3>ข้ามข้อความที่อ่านแล้ว</h3>
                 <label class="toggle-switch">
-                    <input type="checkbox" checked>
+                    <input type="checkbox" checked id="skipReadText">
                     <span class="toggle-slider"></span>
                 </label>
             </div>
@@ -449,7 +140,7 @@ You said:
             <div class="setting-item">
                 <h3>ข้ามทั้งหมด</h3>
                 <label class="toggle-switch">
-                    <input type="checkbox">
+                    <input type="checkbox" id="skipAll">
                     <span class="toggle-slider"></span>
                 </label>
             </div>
@@ -457,252 +148,29 @@ You said:
             <div class="setting-item">
                 <h3>ปุ่มลัด</h3>
                 <div class="button-group">
-                    <button>กำหนดใหม่</button>
-                    <button>ค่าเริ่มต้น</button>
+                    <button id="remapKeys">กำหนดใหม่</button>
+                    <button id="defaultKeys">ค่าเริ่มต้น</button>
                 </div>
             </div>
             
             <div class="setting-item">
                 <h3>บันทึกอัตโนมัติ</h3>
                 <label class="toggle-switch">
-                    <input type="checkbox" checked>
+                    <input type="checkbox" checked id="autoSave">
                     <span class="toggle-slider"></span>
                 </label>
             </div>
         </div>
         
         <div class="settings-footer">
-            <button class="btn btn-secondary" onclick="resetSettings()">คืนค่าการตั้งค่าเริ่มต้น</button>
+            <button class="btn btn-secondary" id="resetSettings">คืนค่าการตั้งค่าเริ่มต้น</button>
             <div>
-                <button class="btn btn-secondary" onclick="closeSettings()">ยกเลิก</button>
-                <button class="btn btn-primary" onclick="saveSettings()">บันทึกการตั้งค่า</button>
+                <button class="btn btn-secondary" id="closeSettings">ยกเลิก</button>
+                <button class="btn btn-primary" id="saveSettings">บันทึกการตั้งค่า</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // ฟังก์ชันสำหรับการเปลี่ยนแท็บ
-        function openTab(tabName) {
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove('active');
-            }
-            
-            const tabButtons = document.getElementsByClassName('tab-button');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove('active');
-            }
-            
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-        
-        // อัปเดตค่าสไลเดอร์
-       // ประกาศตัวแปร sliders เพียงครั้งเดียว
-sliders.forEach(slider => {
-    const valueDisplay = document.getElementById(slider.id + 'Value');
-    slider.addEventListener('input', () => {
-        valueDisplay.textContent = slider.value + '%';
-    });
-});
-
-sliders.forEach(slider => {
-    const valueDisplay = document.getElementById(slider.id + 'Value');
-    slider.addEventListener('input', () => {
-        if (slider.id === 'fontSize') {
-            valueDisplay.textContent = slider.value + 'px';
-        } else if (slider.id === 'textSpeed') {
-            valueDisplay.textContent = slider.value;
-        } else {
-            valueDisplay.textContent = slider.value + '%';
-        }
-    });
-});
-
-        
-        // ฟังก์ชันบันทึกการตั้งค่า
-        function saveSettings() {
-            alert('บันทึกการตั้งค่าเรียบร้อยแล้ว!');
-            // ในเกมจริงควรมีโค้ดสำหรับบันทึกการตั้งค่าทั้งหมดที่นี่
-        }
-        
-        // ฟังก์ชันปิดการตั้งค่า
-        function closeSettings() {
-            if (confirm('ยกเลิกการเปลี่ยนแปลงทั้งหมด?')) {
-                // ในเกมจริงควรนำกลับไปยังหน้าเดิม
-                alert('กลับไปยังเมนูหลัก');
-            }
-        }
-        
-        // ฟังก์ชันรีเซ็ตการตั้งค่า
-        function resetSettings() {
-            if (confirm('คืนค่าการตั้งค่าทั้งหมดเป็นค่าเริ่มต้น?')) {
-                // รีเซ็ตค่าสไลเดอร์และอื่นๆ
-                document.getElementById('musicVolume').value = 80;
-                document.getElementById('musicVolumeValue').textContent = '80%';
-                
-                document.getElementById('sfxVolume').value = 90;
-                document.getElementById('sfxVolumeValue').textContent = '90%';
-                
-                document.getElementById('voiceVolume').value = 100;
-                document.getElementById('voiceVolumeValue').textContent = '100%';
-                
-                document.getElementById('brightness').value = 75;
-                document.getElementById('brightnessValue').textContent = '75%';
-                
-                document.getElementById('textSpeed').value = 5;
-                document.getElementById('textSpeedValue').textContent = '5';
-                
-                document.getElementById('fontSize').value = 16;
-                document.getElementById('fontSizeValue').textContent = '16px';
-                
-                document.getElementById('resolution').value = '1920x1080';
-                document.getElementById('graphicsQuality').value = 'high';
-                document.getElementById('fontStyle').value = 'standard';
-                
-                alert('คืนค่าการตั้งค่าเป็นค่าเริ่มต้นเรียบร้อยแล้ว');
-            }
-        }
-    </script>
+    <script src="setting.js"></script>
 </body>
 </html>
-
-fix this code
-ChatGPT said:
-I reviewed your HTML, CSS, and JavaScript code. The main issue is in your openTab function. You’re using event.currentTarget but event is not passed into the function, which causes an error when clicking tabs. Also, minor improvements can be made to make it fully functional and clean.
-
-Here’s a fixed version of your code with corrections and improvements:
-
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>การตั้งค่า - Visual Novel</title>
-    <style>
-        /* ... Your existing CSS remains the same ... */
-        /* No changes needed in styles */
-    </style>
-</head>
-<body>
-    <div class="settings-container">
-        <div class="settings-header">
-            <h1>การตั้งค่าเกม</h1>
-            <p>ปรับแต่งประสบการณ์การเล่นเกม Visual Novel ของคุณ</p>
-        </div>
-
-        <div class="settings-tabs">
-            <button class="tab-button active" onclick="openTab(event, 'audio')">เสียง</button>
-            <button class="tab-button" onclick="openTab(event, 'display')">การแสดงผล</button>
-            <button class="tab-button" onclick="openTab(event, 'text')">ข้อความ</button>
-            <button class="tab-button" onclick="openTab(event, 'gameplay')">การเล่นเกม</button>
-        </div>
-
-        <!-- Tab contents (audio, display, text, gameplay) -->
-        <!-- ... Keep all your HTML as is ... -->
-
-        <div class="settings-footer">
-            <button class="btn btn-secondary" onclick="resetSettings()">คืนค่าการตั้งค่าเริ่มต้น</button>
-            <div>
-                <button class="btn btn-secondary" onclick="closeSettings()">ยกเลิก</button>
-                <button class="btn btn-primary" onclick="saveSettings()">บันทึกการตั้งค่า</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // ฟังก์ชันสำหรับการเปลี่ยนแท็บ
-        function openTab(event, tabName) {
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove('active');
-            }
-
-            const tabButtons = document.getElementsByClassName('tab-button');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove('active');
-            }
-
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // อัปเดตค่าสไลเดอร์
-        const sliders = document.querySelectorAll('.slider');
-        sliders.forEach(slider => {
-            const valueDisplay = document.getElementById(slider.id + 'Value');
-            slider.addEventListener('input', () => {
-                if (slider.id === 'fontSize') {
-                    valueDisplay.textContent = slider.value + 'px';
-                } else if (slider.id === 'textSpeed') {
-                    valueDisplay.textContent = slider.value;
-                } else {
-                    valueDisplay.textContent = slider.value + '%';
-                }
-            });
-        });
-
-        // ฟังก์ชันบันทึกการตั้งค่า
-        function saveSettings() {
-            alert('บันทึกการตั้งค่าเรียบร้อยแล้ว!');
-            // เพิ่มโค้ดจริงสำหรับบันทึกค่าการตั้งค่า
-        }
-
-        // ฟังก์ชันปิดการตั้งค่า
-        function closeSettings() {
-            if (confirm('ยกเลิกการเปลี่ยนแปลงทั้งหมด?')) {
-                alert('กลับไปยังเมนูหลัก');
-            }
-        }
-
-        // ฟังก์ชันรีเซ็ตการตั้งค่า
-        function resetSettings() {
-            if (confirm('คืนค่าการตั้งค่าทั้งหมดเป็นค่าเริ่มต้น?')) {
-                document.getElementById('musicVolume').value = 80;
-                document.getElementById('musicVolumeValue').textContent = '80%';
-
-                document.getElementById('sfxVolume').value = 90;
-                document.getElementById('sfxVolumeValue').textContent = '90%';
-
-                document.getElementById('voiceVolume').value = 100;
-                document.getElementById('voiceVolumeValue').textContent = '100%';
-
-                document.getElementById('brightness').value = 75;
-                document.getElementById('brightnessValue').textContent = '75%';
-
-                document.getElementById('textSpeed').value = 5;
-                document.getElementById('textSpeedValue').textContent = '5';
-
-                document.getElementById('fontSize').value = 16;
-                document.getElementById('fontSizeValue').textContent = '16px';
-
-                document.getElementById('resolution').value = '1920x1080';
-                document.getElementById('graphicsQuality').value = 'high';
-                document.getElementById('fontStyle').value = 'standard';
-
-                alert('คืนค่าการตั้งค่าเป็นค่าเริ่มต้นเรียบร้อยแล้ว');
-            }
-        }
-    </script>
-</body>
-</html>
-✅ Key Fixes:
-openTab now receives the event parameter:
-
-function openTab(event, tabName)
-And your buttons call it like:
-
-<button onclick="openTab(event, 'audio')">เสียง</button>
-All your sliders, toggle switches, and reset logic are correct.
-
-Minor improvement: the tabs now correctly switch without JS errors.
-
-If you want, I can also make the toggle switches and sliders save their values in localStorage, so your settings persist across page reloads, like a real game.
-
-Do you want me to do that?
-
-
-
-
-No file chosenNo file chosen
-ChatGPT can make mistakes. Check important info.
