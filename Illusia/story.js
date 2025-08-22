@@ -1,5 +1,3 @@
-// DOM Elements
-const startScreen = document.getElementById("start-screen");
 const storyScreen = document.getElementById("story-screen");
 const storyText = document.getElementById("story-text");
 const textBox = document.getElementById("text-box");
@@ -7,9 +5,8 @@ const choicesDiv = document.getElementById("choices");
 const continueText = document.getElementById("continue-text");
 
 let currentScene = null;
-let isTyping = false; // ตรวจสอบว่ากำลังพิมพ์ข้อความ
+let isTyping = false;
 let typeInterval = null;
-
 
 const story = {
   start: {
@@ -108,32 +105,6 @@ const story = {
   }
 };
 
-// แสดง screen
-function showScreen(screenId) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  document.getElementById(screenId).classList.add("active");
-}
-
-// Typewriter effect
-function typeWriter(text, callback) {
-  let i = 0;
-  storyText.textContent = "";
-  isTyping = true;
-  
-  textBox.style.display = "flex";
-  continueText.style.display = "none"; // ซ่อน Space
-
-  typeInterval = setInterval(() => {
-    storyText.textContent += text.charAt(i);
-    i++;
-    if (i >= text.length) {
-      clearInterval(typeInterval);
-      isTyping = false;
-      callback?.(); // เมื่อพิมพ์เสร็จ
-    }
-  }, 50); // ปรับ 50ms ต่อ 1 ตัวอักษร
-}
-
 // โหลดฉาก
 function loadStory(scene) {
   currentScene = scene;
@@ -142,15 +113,11 @@ function loadStory(scene) {
   storyText.textContent = "";
   choicesDiv.innerHTML = "";
 
-  // -------------------------------
-  // เปลี่ยน background ตาม URL ของฉาก
   if (sceneData.background) {
     document.body.style.backgroundImage = `url(${sceneData.background})`;
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundPosition = "center";
   }
-  // -------------------------------
-
   // ถ้ามี delay แต่ไม่มีข้อความ
   if (sceneData.delay && !sceneData.text) {
     continueText.style.display = "none"; // ซ่อน Space
@@ -162,10 +129,7 @@ function loadStory(scene) {
   }
 
   if (sceneData.choices && sceneData.choices.length > 0) {
-    // ซ่อน Space to continue
     continueText.style.display = "none";
-
-    // ปุ่มยังไม่โผล่ก่อน typewriter
     const buttons = sceneData.choices.map(choice => {
       const btn = document.createElement("button");
       btn.textContent = choice.text;
@@ -174,43 +138,58 @@ function loadStory(scene) {
       return btn;
     });
 
-    // ปรับตำแหน่ง top ตามจำนวนปุ่ม
-    if (sceneData.choices.length === 2) choicesDiv.style.top = "60%";
-    else if (sceneData.choices.length === 3) choicesDiv.style.top = "55%";
-    else choicesDiv.style.top = "65%";
+    if (sceneData.choices.length === 2) choicesDiv.style.top = "35%" , choicesDiv.style.gap = "60px" ;
+    else if (sceneData.choices.length === 3) choicesDiv.style.top = "25%", choicesDiv.style.gap = "45px";
+    else choicesDiv.style.top = "35%";
 
-    // typewriter และเมื่อจบ → โชว์ปุ่มจากทางขวา
     typeWriter(sceneData.text, () => {
-      const reversedButtons = [...buttons].reverse();
-      reversedButtons.forEach((btn, index) => {
-        setTimeout(() => btn.classList.add("show"), index * 500); // 0.5 วินาทีระหว่างปุ่ม
-      });
+      buttons.forEach((btn, i) => setTimeout(() => btn.classList.add("show"), i * 300));
     });
-
   } else {
-    // ฉากธรรมดา → Typewriter แล้วแสดง Space
     typeWriter(sceneData.text, () => {
       continueText.style.display = "block";
     });
   }
 }
 
-// กด Space เพื่อดำเนินเรื่อง
+function typeWriter(text, callback) {
+  let i = 0;
+  storyText.textContent = "";
+  isTyping = true;
+
+  textBox.style.display = "flex";
+  continueText.style.display = "none"; // ซ่อน Space
+
+  typeInterval = setInterval(() => {
+    storyText.textContent += text.charAt(i);
+    i++;
+    if (i >= text.length) {
+      clearInterval(typeInterval);
+      isTyping = false;
+      callback?.();
+    }
+  }, 50);
+}
+
+function proceedStory() {
+  const sceneData = story[currentScene];
+  if (isTyping) return;
+  if (!sceneData.choices || sceneData.choices.length === 0) {
+    if (sceneData.next) loadStory(sceneData.next);
+  }
+}
+
+// Space หรือ Click เพื่อไปต่อ
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     e.preventDefault();
-    const sceneData = story[currentScene];
-    if (isTyping) return; // ถ้ากำลังพิมพ์ อย่าดำเนินเรื่อง
-    if ((!sceneData.choices || sceneData.choices.length === 0)) {
-      if (sceneData.next) {
-        loadStory(sceneData.next);
-      }
-    }
+    proceedStory();
   }
 });
 
-// เริ่มเกม
-document.getElementById("start-btn").addEventListener("click", () => {
-  showScreen("story-screen");
-  loadStory("start");
+storyScreen.addEventListener("click", () => {
+  proceedStory();
 });
+
+// เริ่มจากฉากแรก
+window.addEventListener("load", () => loadStory("start"));
