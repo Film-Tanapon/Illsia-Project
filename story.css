@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body {
-    background-image : url(https://iamtk.co/actionable-advice-to-start-learning-to-code/cover.jpeg);
+    background : black;
     background-size: cover;
     background-position: center;
     margin: 0;
