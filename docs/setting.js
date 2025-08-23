@@ -38,7 +38,7 @@ function saveSettings() {
 // ฟังก์ชันปิดการตั้งค่า
 function closeSettings() {
     if (confirm('ยกเลิกการเปลี่ยนแปลงทั้งหมด?')) {
-        window.location.href = "index.html";
+        alert('กลับไปยังเมนูหลัก');
     }
 }
 
