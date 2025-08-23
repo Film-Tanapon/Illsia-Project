@@ -10,105 +10,63 @@ let typeInterval = null;
 
 const story = {
   start: {
-    text: '"แฮ่ก- แฮ่ก" \nร่างกายคุณอาบชุ่มไปด้วยเหงื่อ เสียงลมหวีดหวิวสวนทางกับคุณที่พุ่งตรงไปด้านหน้า อะดรีนาลีนที่หลั่งทำให้ฝีเท้าคุณก้าว \nยาวขึ้น คุณวิ่งเร็วขึ้นเรื่อย ๆ จนกระทั่ง .. ',
-    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408368779196366869/IMG_9650.png?ex=68a97d23&is=68a82ba3&hm=14f33d4fd84ec9c8fafe7d515ec991ef462f2a88c8adae108f836b9f85f34f4c",
+    text: '"แฮ่ก- แฮ่ก" \nร่างกายคุณอาบชุ่มไปด้วยเหงื่อ เสียงลมหวีดหวิวสวนทางกับคุณที่พุ่งตรงไปด้านหน้า อะดรีนาลีนที่หลั่งทำให้ฝีเท้าคุณก้าวยาวขึ้น \nคุณวิ่งเร็วขึ้นเรื่อย ๆ จนกระทั่ง .. ',
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408380610564853800/IMG_9653.png?ex=68aa30e8&is=68a8df68&hm=abdd735253a062852d8e2eb85947817177683d2412487e1ad92a1a879cefe0b8",
     next: "scene_2"
   },
   scene_2: {
     text: "‘ ตุบ- ’ \nสายตาคุณมืดมิด ประสาทการรับรู้ถูกปิดกั้นด้วยบางสิ่ง",
-    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408369544707313734/IMG_6521.png?ex=68a97dd9&is=68a82c59&hm=7b9ad2055f73e8424c69419da1bec3d0bfee0769afa40c52495e68cfceb922d9",
-    next: "scene1"
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408704081391915102/plain-black-background-02fh7564l8qq4m6d.png?ex=68aab569&is=68a963e9&hm=d4a2a0329482ad1c2406de56b944c02adea7a427e55fc754a38e7df6efb6e976",
+    next: "scene_3"
   },
-  scene1: {
-    text: "ทางเดินหนึ่งนำไปสู่หมู่บ้านที่ไกลลิบ อีกทางนำเข้าไปในป่ามืดที่แผ่ขยายไปไม่รู้จบ",
-    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408369544707313734/IMG_6521.png?ex=68a97dd9&is=68a82c59&hm=7b9ad2055f73e8424c69419da1bec3d0bfee0769afa40c52495e68cfceb922d9",
+  scene_3: {
+    text: "เมื่อคุณลืมตาขึ้นมาอีกครั้ง คุณกลับเห็นเพดานห้องสีขาว ตัวคุณนอนราบอยู่บนเตียง มีผ้าห่มคลุมทับถึงช่วงอก \nนั่นอาจเป็นสาเหตุที่เหงื่อกาฬคุณไหลซึมจนเปียกชื้น คุณค่อย ๆ หยัดกายลุกขึ้นช้า ๆ",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408385717079511120/IMG_6523.png?ex=68aa35a9&is=68a8e429&hm=dfe6473872f905eb656958403b313af7d082f60a4d90873f1c2d9a92125d6033",
+    next: "scene_4"
+  },
+  scene_4: {
+    text: "ภาพตรงหน้าเรียกได้ว่าเป็นห้องนอนห้องหนึ่ง คุณกวาดสายตามองไปรอบ ๆ ความคุ้นเคยที่เพิ่มขึ้นทีละน้อยทำให้คุณมั่นใจ- นี่คือห้องนอนของคุณ มันคล้ายกับในความทรงจำ แต่คุณยังอดไม่ได้ที่จะรู้สึกว่ามันประหลาด",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408697075566121051/IMG_9662.png?ex=68aaaee3&is=68a95d63&hm=b771d1d0eb18cefd85a55ea1b6c9289e303e696b2097c71443cc405ddae10f33",
+    next: "explore_room"
+  },
+  explore_room: {
+    text: "คุณจะสำรวจห้องนอนของคุณหรือไม่ ?",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408697075566121051/IMG_9662.png?ex=68aaaee3&is=68a95d63&hm=b771d1d0eb18cefd85a55ea1b6c9289e303e696b2097c71443cc405ddae10f33",
     choices: [
-      { text: "เดินไปหมู่บ้าน", next: "village" },
-      { text: "เข้าไปในป่า", next: "forest" }
+      { text: "สำรวจ", next: "explore_1" },
+      { text: "ไม่สำรวจ", next: "scene_5" }
     ]
   },
-  village: {
-    text: "คุณเดินไปยังหมู่บ้านที่เงียบสงัด เสียงเท้าของคุณสะท้อนกับถนนหินเก่า ๆ หมู่บ้านดูเหมือนถูกทิ้งร้างมานาน แต่มีแสงไฟเล็ก ๆ ส่องออกมาจากหน้าต่างบ้านหลังหนึ่ง คุณจะเข้าไปตรวจสอบหรือไม่?",
-    background : "https://i.pinimg.com/736x/30/46/b4/3046b465ba5c527f0e10b58783f187fc.jpg",
+  explore_1: {
+    text: "คุณตัดสินใจที่จะสำรวจห้องนอนของคุณ ทุกอย่างดูปกติดี เว้นแต่สมุดปริศนาที่วางไว้อยู่บนโต๊ะข้างเตียงนอน \nคุณหยิบมันขึ้นมา หน้าปกดูเก่าและใกล้จะพังเต็มที ไม่น่าเชื่อว่ายังมีคนใช้งานมันอยู่ได้ \nคุณจะเปิดไดอารี่อ่านหรือไม่ ?",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408447232503582863/IMG_6527.png?ex=68aa6ef3&is=68a91d73&hm=bd84ee5949b1b5ee2c4a6a4def7123b3348cbefa1419812718ac18a2d97242f8",
     choices: [
-      { text: "เข้าไปตรวจสอบบ้าน", next: "house" },
-      { text: "เดินต่อไปสำรวจหมู่บ้าน", next: "village_square" }
+      { text: "เปิด", next: "diary_1_open" },
+      { text: "ไม่เปิด", next: "diary_1_save" }
     ]
   },
-  house: {
-    text: "ภายในบ้านนั้นมีกล่องไม้เก่า ๆ วางอยู่บนโต๊ะ คุณเปิดมันพบจดหมายเก่า ๆ ที่กล่าวถึงคำสาปที่อยู่ในป่า การอ่านจดหมายทำให้คุณรู้สึกหนาววาบที่หลัง",
-    background : "https://t4.ftcdn.net/jpg/05/29/68/77/360_F_529687786_L9Ye0sGI6bRxGsjaU5x0NTaUsxjq5KDj.jpg",
-    next: "village_square"
+  diary_1_open: {
+    text: "ด้วยความอยากรู้ที่คุณมี คุณเลือกจะเปิดไดอารี่นั้นอ่าน ในหน้ากระดาษที่ยับเยิน ข้อความเขียนด้วยดินสอสีเข้มราวกับกล่าวเตือนคุณ \nตัวหนังสือไม่เรียบร้อยเรียงเป็นข้อความว่า ‘รีบออกไปซะ !’ ลมหายใจคุณสะดุด คุณรีบเลื่อนสายตามองหาทางออกอย่างรวดเร็ว‘",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408457867354312784/IMG_6531.png?ex=68aa78db&is=68a9275b&hm=0b60647af191cf905c3fdb67c995967199c95038bffaf1ff8b157eb78eba43d7",
+    next: "scene_5"
   },
-  village_square: {
-    text: "เมื่อคุณออกจากบ้าน คุณเห็นลานกลางหมู่บ้าน เงามืดของต้นไม้ใหญ่ปกคลุมทั่วบริเวณ คุณรู้สึกว่ามีบางสิ่งเคลื่อนไหวอยู่ใกล้ ๆ แต่คุณไม่สามารถระบุได้ชัดเจน",
-    background : "https://123.jpg",
-    choices: [
-      { text: "เดินไปสำรวจต้นไม้ใหญ่", next: "tree" },
-      { text: "วิ่งกลับไปที่ทางออกของหมู่บ้าน", next: "start" }
-    ]
+  diary_1_save: {
+    text: "คุณเก็บไดอารี่ไว้กับตัว ตัดสินใจที่จะไม่อ่านเนื้อหาด้านใน ในตอนที่คุณเงยหน้าขึ้นมา คุณเห็นประตูบานหนึ่งอยู่ตรงหน้า \nมันจะต้องเป็นประตูที่เปิดออกสู่ข้างนอกห้องอย่างแน่นอน คุณไม่ลังเลที่จะเปิดมัน \nto be continue …",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408697713297719377/IMG_9663.png?ex=68aaaf7b&is=68a95dfb&hm=96077ca11017da4d57fbc82168736271f9cb103bbd0a51a9830a7ce78dbb7556",
+    next: "scene_5"
   },
-  tree: {
-    text: "คุณเดินเข้าใกล้ต้นไม้ใหญ่ ใต้โคนต้นมีสัญลักษณ์ประหลาดที่สลักอยู่บนพื้นดิน ดูเหมือนเป็นคาถาโบราณที่เตือนให้อยู่ห่างจากที่นี่",
-    background : "https://123.jpg",
-    choices: [
-      { text: "พยายามอ่านสัญลักษณ์", next: "curse" },
-      { text: "ถอยกลับไปทางออกหมู่บ้าน", next: "start" }
-    ]
+  scene_5: {
+    text: "คุณเห็นประตูบานหนึ่งอยู่ตรงหน้า มันจะต้องเป็นประตูที่เปิดออกสู่ข้างนอกห้องอย่างแน่นอน คุณไม่ลังเลที่จะเปิดมัน \nto be continue …",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408697713297719377/IMG_9663.png?ex=68aaaf7b&is=68a95dfb&hm=96077ca11017da4d57fbc82168736271f9cb103bbd0a51a9830a7ce78dbb7556",
+    next: "end"
   },
-  curse: {
-    text: "ทันทีที่คุณอ่านสัญลักษณ์ ความมืดรอบตัวคุณเริ่มหนาแน่นขึ้น จนคุณมองไม่เห็นทางใด ๆ เสียงกระซิบลึกลับดังขึ้นข้างหูคุณ",
-    background : "https://123.jpg",
-    next: "monster"
-  },
-  forest: {
-    text: "คุณเดินเข้าไปในป่ามืด เสียงสัตว์ป่าและใบไม้ที่ถูกเหยียบทำให้คุณตื่นตัวอยู่ตลอดเวลา ทันใดนั้น คุณเห็นทางแยกที่แยกออกเป็นสามทาง",
-    background : "https://123.jpg",
-    choices: [
-      { text: "เดินทางซ้าย", next: "left_path" },
-      { text: "เดินทางตรง", next: "straight_path" },
-      { text: "เดินทางขวา", next: "right_path" }
-    ]
-  },
-  left_path: {
-    text: "ทางซ้ายพาคุณไปยังลำธารที่ไหลเอื่อย คุณได้ยินเสียงน้ำและกลิ่นสดชื่นของธรรมชาติ ช่วงเวลานี้ทำให้คุณผ่อนคลายเล็กน้อย แต่คุณยังรู้สึกว่ามีอะไรซ่อนอยู่รอบ ๆ",
-    background : "https://123.jpg",
-    next: "forest_encounter"
-  },
-  straight_path: {
-    text: "ทางตรงนำไปสู่พื้นที่มืดที่สุดของป่า ต้นไม้สูงและหนาทึบทำให้แสงแทบไม่เข้ามาถึงพื้น คุณเริ่มรู้สึกว่าไม่ได้อยู่คนเดียว",
-    background : "https://123.jpg",
-    next: "forest_encounter"
-  },
-  right_path: {
-    text: "ทางขวาพาคุณไปยังทุ่งหญ้าที่สลับกับต้นไม้เตี้ย ๆ ทุ่งหญ้าเต็มไปด้วยดอกไม้ป่าที่สวยงาม แต่เสียงสัตว์แปลก ๆ ทำให้คุณขนลุก",
-    background : "https://123.jpg",
-    next: "forest_encounter"
-  },
-  forest_encounter: {
-    text: "อยู่ ๆ มีเงามืดขนาดใหญ่ปรากฏออกมาจากพุ่มไม้ คุณมีเวลาเพียงเสี้ยววินาทีในการตัดสินใจว่าจะทำอย่างไร",
-    background : "https://123.jpg",
-    choices: [
-      { text: "สู้กับเงามืด", next: "monster" },
-      { text: "วิ่งหนีออกจากป่า", next: "start" }
-    ]
-  },
-  monster: {
-    text: "สัตว์ประหลาดโผล่มา! คุณพยายามหนีแต่ไม่มีทางรอด สุดท้ายคุณถูกมันจับได้และทุกอย่างมืดลง... เกมจบแล้ว",
-    background : "https://123.jpg",
-    choices: []
-  },
-  end: {
-    text: "ขอบคุณที่เล่น Illsia! โลกแห่งป่ามืดและหมู่บ้านร้างยังคงรอผู้เล่นคนต่อไปที่จะค้นพบความลึกลับ",
-    background : "https://123.jpg",
-    choices: []
-  }
 };
 
 // โหลดฉาก
 function loadStory(scene) {
   currentScene = scene;
   const sceneData = story[scene];
+  textBox.style.display = "none"
 
   storyText.textContent = "";
   choicesDiv.innerHTML = "";
@@ -121,7 +79,6 @@ function loadStory(scene) {
   // ถ้ามี delay แต่ไม่มีข้อความ
   if (sceneData.delay && !sceneData.text) {
     continueText.style.display = "none"; // ซ่อน Space
-    textBox.style.display = "none";
     setTimeout(() => {
       if (sceneData.next) loadStory(sceneData.next);
     }, sceneData.delay);
@@ -178,6 +135,13 @@ function typeWriter(text, callback) {
 function proceedStory() {
   const sceneData = story[currentScene];
   if (isTyping) return;
+
+  // ตรวจสอบว่าฉากสุดท้าย
+  if (currentScene === "end") {
+    window.location.href = "index.html"; // กลับไปหน้า index.html
+    return;
+  }
+
   if (!sceneData.choices || sceneData.choices.length === 0) {
     if (sceneData.next) loadStory(sceneData.next);
   }
