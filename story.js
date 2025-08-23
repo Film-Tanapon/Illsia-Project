@@ -12,6 +12,24 @@ const story = {
   start: {
     text: '"แฮ่ก- แฮ่ก" \nร่างกายคุณอาบชุ่มไปด้วยเหงื่อ เสียงลมหวีดหวิวสวนทางกับคุณที่พุ่งตรงไปด้านหน้า อะดรีนาลีนที่หลั่งทำให้ฝีเท้าคุณก้าวยาวขึ้น \nคุณวิ่งเร็วขึ้นเรื่อย ๆ จนกระทั่ง .. ',
     background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408380610564853800/IMG_9653.png?ex=68aa30e8&is=68a8df68&hm=abdd735253a062852d8e2eb85947817177683d2412487e1ad92a1a879cefe0b8",
+    next: "delay_faint_1"
+  },
+  delay_faint_1: {
+    text: "",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408715193659293737/IMG_6539.png?ex=68aabfc2&is=68a96e42&hm=0118cad704754373d1c98f430a8a9ca274d4038e04b0eaf956d37dd588b96863&",
+    delay : 750,
+    next: "delay_faint_2"
+  },
+  delay_faint_2: {
+    text: "",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408715194246627338/IMG_6538.png?ex=68aabfc2&is=68a96e42&hm=be2583933185591b885f6a768a4263f1fdb2fffe02137822b8ea4b5aa9d7e483&",
+    delay : 750,
+    next: "delay_faint_3"
+  },
+  delay_faint_3: {
+    text: "",
+    background : "https://cdn.discordapp.com/attachments/1408368721583538176/1408715195135561778/IMG_6537.png?ex=68aabfc3&is=68a96e43&hm=95625ef364e7005dac9de650fa08696dbf2e0b2dfb4d306b1447e0435b60168f&",
+    delay : 750,
     next: "scene_2"
   },
   scene_2: {
