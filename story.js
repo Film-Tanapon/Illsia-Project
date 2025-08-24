@@ -7,6 +7,8 @@ const continueText = document.getElementById("continue-text");
 let currentScene = null;
 let isTyping = false;
 let typeInterval = null;
+let fullText = "";
+let textFinished = false;
 
 const preloadImages = () => {
   const urls = Object.values(story)
@@ -46,18 +48,18 @@ const story = {
   scene_2: {
     text: "‘ ตุบ- ’ \nสายตาคุณมืดมิด ประสาทการรับรู้ถูกปิดกั้นด้วยบางสิ่ง",
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Scene_2.png?raw=true",
-    next: "delay_scene_3"
+    next: "scene_3"
   },
   scene_3: {
     text: "เมื่อคุณลืมตาขึ้นมาอีกครั้ง คุณกลับเห็นเพดานห้องสีขาว ตัวคุณนอนราบอยู่บนเตียง มีผ้าห่มคลุมทับถึงช่วงอก \nนั่นอาจเป็นสาเหตุที่เหงื่อกาฬคุณไหลซึมจนเปียกชื้น คุณค่อย ๆ หยัดกายลุกขึ้นช้า ๆ",
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Scene_3.png?raw=true",
-    next: "scene_4"
+    next: "delay_scene_4"
   },
     delay_scene_4: {
     text: "",
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Delay_Scene_4,Explore_room.png?raw=true",
     delay : 1000,
-    next: "delay_faint_2"
+    next: "scene_4"
   },
   scene_4: {
     text: "ภาพตรงหน้าเรียกได้ว่าเป็นห้องนอนห้องหนึ่ง คุณกวาดสายตามองไปรอบ ๆ ความคุ้นเคยที่เพิ่มขึ้นทีละน้อยทำให้คุณมั่นใจ- นี่คือห้องนอนของคุณ มันคล้ายกับในความทรงจำ แต่คุณยังอดไม่ได้ที่จะรู้สึกว่ามันประหลาด",
@@ -146,12 +148,15 @@ function loadStory(scene) {
 
 function typeWriter(text, callback) {
   let i = 0;
-  storyText.textContent = "";
+  fullText = text;
+  textFinished = false;
   isTyping = true;
+  storyText.textContent = "";
 
   textBox.style.display = "flex";
   continueText.style.display = "none"; // ซ่อน Space
 
+  clearInterval(typeInterval);
   typeInterval = setInterval(() => {
     if (text.charAt(i) === "\n") {
       storyText.innerHTML += "<br>";
@@ -162,9 +167,19 @@ function typeWriter(text, callback) {
     if (i >= text.length) {
       clearInterval(typeInterval);
       isTyping = false;
+      textFinished = true;
+      continueText.style.display = "block";
       callback?.();
     }
-  }, 50);
+  }, 30);
+}
+
+function skipTyping() {
+  clearInterval(typeInterval);
+  storyText.innerHTML = fullText.replace(/\n/g, "<br>");
+  isTyping = false;
+  textFinished = true;
+  continueText.style.display = "block";
 }
 
 function proceedStory() {
@@ -182,18 +197,26 @@ function proceedStory() {
   }
 }
 
-// Space หรือ Click เพื่อไปต่อ
+// ดัก Space ใหม่
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     e.preventDefault();
+    if (isTyping) {
+      skipTyping();
+    } else if (textFinished) {
+      proceedStory();
+    }
+  }
+});
+
+// ดัก Click ใหม่
+storyScreen.addEventListener("click", () => {
+  if (isTyping) {
+    skipTyping();
+  } else if (textFinished) {
     proceedStory();
   }
 });
 
-storyScreen.addEventListener("click", () => {
-  preloadImages();
-  proceedStory();
-});
-
 // เริ่มจากฉากแรก
-window.addEventListener("load", () => loadStory("start"));
+window.addEventListener("load", () => loadStory("start"),preloadImages());
