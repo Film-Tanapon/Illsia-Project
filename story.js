@@ -48,25 +48,25 @@ const story = {
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Scene_2.png?raw=true",
     next: "delay_scene_3"
   },
-  delay_scene_3: {
-    text: "",
-    background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Delay_faint_1.png?raw=true",
-    delay : 1000,
-    next: "delay_faint_2"
-  },
   scene_3: {
     text: "เมื่อคุณลืมตาขึ้นมาอีกครั้ง คุณกลับเห็นเพดานห้องสีขาว ตัวคุณนอนราบอยู่บนเตียง มีผ้าห่มคลุมทับถึงช่วงอก \nนั่นอาจเป็นสาเหตุที่เหงื่อกาฬคุณไหลซึมจนเปียกชื้น คุณค่อย ๆ หยัดกายลุกขึ้นช้า ๆ",
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Scene_3.png?raw=true",
     next: "scene_4"
   },
+    delay_scene_4: {
+    text: "",
+    background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Delay_Scene_4,Explore_room.png?raw=true",
+    delay : 1000,
+    next: "delay_faint_2"
+  },
   scene_4: {
     text: "ภาพตรงหน้าเรียกได้ว่าเป็นห้องนอนห้องหนึ่ง คุณกวาดสายตามองไปรอบ ๆ ความคุ้นเคยที่เพิ่มขึ้นทีละน้อยทำให้คุณมั่นใจ- นี่คือห้องนอนของคุณ มันคล้ายกับในความทรงจำ แต่คุณยังอดไม่ได้ที่จะรู้สึกว่ามันประหลาด",
-    background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Scene_4,Explore_room.png?raw=true",
+    background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Scene_4.png?raw=true",
     next: "explore_room"
   },
   explore_room: {
     text: "คุณจะสำรวจห้องนอนของคุณหรือไม่ ?",
-    background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Scene_4,Explore_room.png?raw=true",
+    background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Delay_Scene_4,Explore_room.png?raw=true",
     choices: [
       { text: "สำรวจ", next: "explore_1" },
       { text: "ไม่สำรวจ", next: "scene_5" }
