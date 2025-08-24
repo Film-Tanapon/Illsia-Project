@@ -8,17 +8,6 @@ let currentScene = null;
 let isTyping = false;
 let typeInterval = null;
 
-const preloadImages = () => {
-  const urls = Object.values(story)
-    .map(scene => scene.background)
-    .filter(url => url); // เอาเฉพาะที่มี background
-
-  urls.forEach(url => {
-    const img = new Image();
-    img.src = url; // preload
-  });
-};
-
 const story = {
   start: {
     text: '"แฮ่ก- แฮ่ก" \nร่างกายคุณอาบชุ่มไปด้วยเหงื่อ เสียงลมหวีดหวิวสวนทางกับคุณที่พุ่งตรงไปด้านหน้า อะดรีนาลีนที่หลั่งทำให้ฝีเท้าคุณก้าวยาวขึ้น \nคุณวิ่งเร็วขึ้นเรื่อย ๆ จนกระทั่ง .. ',
@@ -185,7 +174,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 storyScreen.addEventListener("click", () => {
-  preloadImages();
   proceedStory();
 });
 
