@@ -191,8 +191,8 @@ document.addEventListener("keydown", (e) => {
 });
 
 storyScreen.addEventListener("click", () => {
-  preloadImages();
+  proceedStory();
 });
 
 // เริ่มจากฉากแรก
-window.addEventListener("load", () => loadStory("start"),proceedStory());
+window.addEventListener("load", () => loadStory("start"),preloadImages());
