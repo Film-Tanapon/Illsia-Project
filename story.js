@@ -28,25 +28,31 @@ const story = {
   delay_faint_1: {
     text: "",
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Delay_faint_1.png?raw=true",
-    delay : 750,
+    delay : 1000,
     next: "delay_faint_2"
   },
   delay_faint_2: {
     text: "",
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Delay_faint_2.png?raw=true",
-    delay : 750,
+    delay : 1000,
     next: "delay_faint_3"
   },
   delay_faint_3: {
     text: "",
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Delay_faint_3.png?raw=true",
-    delay : 750,
+    delay : 1000,
     next: "scene_2"
   },
   scene_2: {
     text: "‘ ตุบ- ’ \nสายตาคุณมืดมิด ประสาทการรับรู้ถูกปิดกั้นด้วยบางสิ่ง",
     background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Scene_2.png?raw=true",
-    next: "scene_3"
+    next: "delay_scene_3"
+  },
+  delay_scene_3: {
+    text: "",
+    background : "https://github.com/Film-Tanapon/Illusia-Project/blob/main/picture/Delay_faint_1.png?raw=true",
+    delay : 1000,
+    next: "delay_faint_2"
   },
   scene_3: {
     text: "เมื่อคุณลืมตาขึ้นมาอีกครั้ง คุณกลับเห็นเพดานห้องสีขาว ตัวคุณนอนราบอยู่บนเตียง มีผ้าห่มคลุมทับถึงช่วงอก \nนั่นอาจเป็นสาเหตุที่เหงื่อกาฬคุณไหลซึมจนเปียกชื้น คุณค่อย ๆ หยัดกายลุกขึ้นช้า ๆ",
