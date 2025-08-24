@@ -7,8 +7,6 @@ const continueText = document.getElementById("continue-text");
 let currentScene = null;
 let isTyping = false;
 let typeInterval = null;
-let fullText = "";
-let textFinished = false;
 
 const preloadImages = () => {
   const urls = Object.values(story)
@@ -148,15 +146,12 @@ function loadStory(scene) {
 
 function typeWriter(text, callback) {
   let i = 0;
-  fullText = text;
-  textFinished = false;
-  isTyping = true;
   storyText.textContent = "";
+  isTyping = true;
 
   textBox.style.display = "flex";
   continueText.style.display = "none"; // ซ่อน Space
 
-  clearInterval(typeInterval);
   typeInterval = setInterval(() => {
     if (text.charAt(i) === "\n") {
       storyText.innerHTML += "<br>";
@@ -167,19 +162,9 @@ function typeWriter(text, callback) {
     if (i >= text.length) {
       clearInterval(typeInterval);
       isTyping = false;
-      textFinished = true;
-      continueText.style.display = "block";
       callback?.();
     }
   }, 30);
-}
-
-function skipTyping() {
-  clearInterval(typeInterval);
-  storyText.innerHTML = fullText.replace(/\n/g, "<br>");
-  isTyping = false;
-  textFinished = true;
-  continueText.style.display = "block";
 }
 
 function proceedStory() {
@@ -197,26 +182,17 @@ function proceedStory() {
   }
 }
 
-// ดัก Space ใหม่
+// Space หรือ Click เพื่อไปต่อ
 document.addEventListener("keydown", (e) => {
   if (e.code === "Space") {
     e.preventDefault();
-    if (isTyping) {
-      skipTyping();
-    } else if (textFinished) {
-      proceedStory();
-    }
-  }
-});
-
-// ดัก Click ใหม่
-storyScreen.addEventListener("click", () => {
-  if (isTyping) {
-    skipTyping();
-  } else if (textFinished) {
     proceedStory();
   }
 });
 
+storyScreen.addEventListener("click", () => {
+  preloadImages();
+});
+
 // เริ่มจากฉากแรก
-window.addEventListener("load", () => loadStory("start"),preloadImages());
+window.addEventListener("load", () => loadStory("start"),proceedStory());
